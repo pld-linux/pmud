@@ -7,11 +7,13 @@ License:	GPL
 Group:		Applications/System
 Source0:	%{name}-%{version}.tar.gz
 Source1:	%{name}.init
+Patch0:		%{name}-pwrctl.patch
 Provides:	apmd
 ExclusiveArch:	ppc
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Requires:	chkconfig
 Requires:	dev >= 2.8.0-22
+Requires:	hdparm
 Obsoletes:	apmd
 
 %define		_xbindir	/usr/X11R6/bin
@@ -31,6 +33,7 @@ proces init o wyst±pieniu awarii zasilania.
 
 %prep
 %setup -q -n %{name}-0.10
+%patch0 -p1
 
 %build
 %{__make}
