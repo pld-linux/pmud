@@ -5,7 +5,8 @@ Version:	0.10.1
 Release:	1
 License:	GPL
 Group:		Applications/System
-Source:		http://linuxppc.jvc.nl/%{name}-%{version}.tar.gz
+Source0:	http://linuxppc.jvc.nl/%{name}-%{version}.tar.gz
+# Source0-md5:	1bdc546199cd7e745c2cf7f560a52198
 Source1:	%{name}.init
 Patch0:		%{name}-pwrctl.patch
 URL:		http://linuxppc.jvc.nl/
