@@ -5,10 +5,10 @@ Version:	0.10.1
 Release:	1
 License:	GPL
 Group:		Applications/System
-Source:		http://www3.jvc.nl/linuxppc/%{name}-%{version}.tar.gz
+Source:		http://linuxppc.jvc.nl/%{name}-%{version}.tar.gz
 Source1:	%{name}.init
 Patch0:		%{name}-pwrctl.patch
-URL:		http://www3.jvc.nl/linuxppc/
+URL:		http://linuxppc.jvc.nl/
 Requires:	chkconfig
 Requires:	dev >= 2.8.0-22
 Requires:	hdparm
