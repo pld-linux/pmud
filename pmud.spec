@@ -46,11 +46,11 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_sbindir},%{_bindir},%{_mandir}/man8} \
 	$RPM_BUILD_ROOT/etc/{rc.d/init.d,sysconfig,power}
 
-install pmud snooze wakebay fblevel $RPM_BUILD_ROOT%{_sbindir}
+install pmud snooze wakebay $RPM_BUILD_ROOT%{_sbindir}
 install Batmon $RPM_BUILD_ROOT%{_bindir}
 install xmouse $RPM_BUILD_ROOT%{_bindir}
 
-install pmud.8 snooze.8 fblevel.8 batmon.8 $RPM_BUILD_ROOT%{_mandir}/man8
+install pmud.8 snooze.8 $RPM_BUILD_ROOT%{_mandir}/man8
 install xmouse.8 $RPM_BUILD_ROOT%{_mandir}/man8
 
 install power.conf $RPM_BUILD_ROOT/etc/sysconfig/power
