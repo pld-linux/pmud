@@ -1,0 +1,20 @@
+--- pmud-0.10/pmud.c.orig	2004-05-02 22:03:19.521046304 +0100
++++ pmud-0.10/pmud.c	2004-05-02 22:03:29.882471128 +0100
+@@ -363,7 +363,7 @@
+ 	chk(fcntl(pmu_fd, F_GETFL, &fl) < 0, "fcntl(F_GETFL)");
+ 
+ 	fl |= O_NONBLOCK;
+-	chk(fcntl(pmu_fd, F_SETFL, &fl) < 0, "fcntl(F_SETFL)");
++	chk(fcntl(pmu_fd, F_SETFL, fl) < 0, "fcntl(F_SETFL)");
+ 
+ 	add_fd(pmu_fd, POLLIN, pmu_intr, NULL);
+ 
+@@ -1197,7 +1197,7 @@
+ 	chk(fcntl(fe, F_GETFL, &fl) < 0, "fcntl(F_GETFL)");
+ 
+ 	fl |= O_NONBLOCK;
+-	chk(fcntl(fe, F_SETFL, &fl) < 0, "fcntl(F_SETFL)");
++	chk(fcntl(fe, F_SETFL, fl) < 0, "fcntl(F_SETFL)");
+ 
+ 	ss = malloc(sizeof(*ss));
+ 	if (ss == 0) 
