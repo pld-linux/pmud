@@ -48,7 +48,7 @@ install pmud.8 snooze.8 fblevel.8 batmon.8 $RPM_BUILD_ROOT%{_mandir}/man8
 install xmouse.8 $RPM_BUILD_ROOT%{_xmandir}/man8
 
 install power.conf $RPM_BUILD_ROOT/etc/sysconfig/power
-install ${SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/pmud
+install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/pmud
 install pwrctl $RPM_BUILD_ROOT%{_sysconfdir}/power/pwrctl
 
 %clean
