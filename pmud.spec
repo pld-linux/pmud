@@ -2,12 +2,14 @@ Summary:	Power Manager daemon for Apple PowerBooks
 Summary(pl):	Demon zarz±dzaj±cy poborem energii dla komputerów Apple PowerBook
 Name:		pmud
 Version:	0.10.1
-Release:	0.2
+Release:	1
 License:	GPL
 Group:		Applications/System
+# http://www3.jvc.nl/linuxppc/pmud-0.10.1.tar.gz
 Source0:	%{name}-%{version}.tar.gz
 Source1:	%{name}.init
 Patch0:		%{name}-pwrctl.patch
+URL:		http://www3.jvc.nl/linuxppc/
 Provides:	apmd
 ExclusiveArch:	ppc
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -15,9 +17,6 @@ Requires:	chkconfig
 Requires:	dev >= 2.8.0-22
 Requires:	hdparm
 Obsoletes:	apmd
-
-%define		_xbindir	/usr/X11R6/bin
-%define		_xmandir	/usr/X11R6/man
 
 %description
 pmud is a daemon which periodically polls the PMU (power manager) and
@@ -40,25 +39,27 @@ proces init o wyst±pieniu awarii zasilania.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sbindir},%{_bindir},%{_xbindir},%{_mandir}/man8,%{_xmandir}/man8} \
+install -d $RPM_BUILD_ROOT{%{_sbindir},%{_bindir},%{_mandir}/man8} \
 	$RPM_BUILD_ROOT/etc/{rc.d/init.d,sysconfig,power}
 
 install pmud snooze wakebay fblevel $RPM_BUILD_ROOT%{_sbindir}
 install Batmon $RPM_BUILD_ROOT%{_bindir}
-install xmouse $RPM_BUILD_ROOT%{_xbindir}
+install xmouse $RPM_BUILD_ROOT%{_bindir}
 
 install pmud.8 snooze.8 fblevel.8 batmon.8 $RPM_BUILD_ROOT%{_mandir}/man8
-install xmouse.8 $RPM_BUILD_ROOT%{_xmandir}/man8
+install xmouse.8 $RPM_BUILD_ROOT%{_mandir}/man8
 
 install power.conf $RPM_BUILD_ROOT/etc/sysconfig/power
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/pmud
 install pwrctl $RPM_BUILD_ROOT%{_sysconfdir}/power/pwrctl
 
+cd $RPM_BUILD_ROOT%{_bindir} 
+ln -sf /usr/sbin/snooze apm
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
-ln -sf /usr/sbin/snooze /usr/bin/apm
 /sbin/chkconfig --add pmud
 if [ -f /var/lock/subsys/pmud ]; then
 	/etc/rc.d/init.d/pmud restart >&2
@@ -79,9 +80,7 @@ fi
 %doc {BUGS,CHANGES,INSTALL,README,THANKS,TODO,pwrctl-local}
 %attr(755,root,root) %{_sbindir}/*
 %attr(755,root,root) %{_bindir}/*
-%attr(755,root,root) %{_xbindir}/*
 %attr(644,root,root) /etc/sysconfig/power
 %attr(754,root,root) /etc/rc.d/init.d/pmud
 %attr(640,root,root) %{_sysconfdir}/power/pwrctl
 %{_mandir}/man8/*
-%{_xmandir}/man8/*
