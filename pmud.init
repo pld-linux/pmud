@@ -1,0 +1,59 @@
+#!/bin/sh
+# $Id$
+#
+# pmud	       Power Manager daemon for Apple powerbooks
+#
+# chkconfig: 2345 40 60
+# description: pmud is a daemon which periodically polls the PMU \
+#              (power manager) and performs functions such as enabling \
+#              or disabling devices appropriately when the power source \
+#              changes.
+#
+# config:	/etc/sysconfig/power
+
+# Source function library
+. /etc/rc.d/init.d/functions
+
+# Get service config
+if [ -f /etc/sysconfig/pmud ]; then
+	. /etc/sysconfig/pmud
+fi
+
+# See how we were called.
+case "$1" in
+  start)
+	# Check if service is already running?
+	if [ ! -f /var/lock/subsys/pmud ]; then
+		
+		# try load event module
+		msg_starting "pmud"
+		daemon pmud $PMUD_FLAGS
+		touch /var/lock/subsys/pmud
+	else
+		msg_already_running "pmud"
+		exit 1
+	fi
+	;;
+  stop)
+    	if [ -f /var/lock/subsys/pmud ]; then
+		msg_stopping "pmud"
+		killproc pmud
+		rm -f /var/lock/subsys/pmud
+	else
+		msg_not_running pmud
+	fi
+	;;
+  status)
+	status pmud
+	;;
+  restart|reload)
+	$0 stop
+	$0 start
+	;;
+  *)
+	msg_usage "$0 {start|stop|status|restart|reload}"
+	exit 1
+esac
+
+exit 0
+
