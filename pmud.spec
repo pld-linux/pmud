@@ -5,17 +5,16 @@ Version:	0.10.1
 Release:	1
 License:	GPL
 Group:		Applications/System
-# http://www3.jvc.nl/linuxppc/pmud-0.10.1.tar.gz
-Source0:	%{name}-%{version}.tar.gz
+Source:		http://www3.jvc.nl/linuxppc/%{name}-%{version}.tar.gz
 Source1:	%{name}.init
 Patch0:		%{name}-pwrctl.patch
 URL:		http://www3.jvc.nl/linuxppc/
-Provides:	apmd
-ExclusiveArch:	ppc
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Requires:	chkconfig
 Requires:	dev >= 2.8.0-22
 Requires:	hdparm
+Provides:	apmd
+ExclusiveArch:	ppc
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	apmd
 
 %description
@@ -53,8 +52,7 @@ install power.conf $RPM_BUILD_ROOT/etc/sysconfig/power
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/pmud
 install pwrctl $RPM_BUILD_ROOT%{_sysconfdir}/power/pwrctl
 
-cd $RPM_BUILD_ROOT%{_bindir} 
-ln -sf /usr/sbin/snooze apm
+ln -sf %{_sbindir}/snooze $RPM_BUILD_ROOT%{_bindir}/apm
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -77,7 +75,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc {BUGS,CHANGES,INSTALL,README,THANKS,TODO,pwrctl-local}
+%doc BUGS CHANGES INSTALL README THANKS TODO pwrctl-local
 %attr(755,root,root) %{_sbindir}/*
 %attr(755,root,root) %{_bindir}/*
 %attr(644,root,root) /etc/sysconfig/power
