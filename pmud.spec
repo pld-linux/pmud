@@ -58,8 +58,7 @@ rm -rf $RPM_BUILD_ROOT
 ln -sf /usr/sbin/snooze /usr/bin/apm
 /sbin/chkconfig --add pmud
 if [ -f /var/lock/subsys/pmud ]; then
-	/etc/rc.d/init.d/pmud stop >&2
-	/etc/rc.d/init.d/pmud start >&2
+	/etc/rc.d/init.d/pmud restart >&2
 else
 	echo "Run \"/etc/rc.d/init.d/pmud start\" to start pmud daemon."
 fi
