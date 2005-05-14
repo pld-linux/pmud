@@ -85,5 +85,5 @@ fi
 %attr(755,root,root) %{_bindir}/*
 %attr(644,root,root) /etc/sysconfig/power
 %attr(754,root,root) /etc/rc.d/init.d/pmud
-%attr(640,root,root) %{_sysconfdir}/power/pwrctl
+%attr(755,root,root) %{_sysconfdir}/power/pwrctl
 %{_mandir}/man8/*
