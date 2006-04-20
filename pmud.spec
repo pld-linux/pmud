@@ -11,13 +11,15 @@ Source1:	%{name}.init
 Patch0:		%{name}-pwrctl.patch
 Patch1:		%{name}-fcntl.patch
 URL:		http://linuxppc.jvc.nl/
-Requires:	chkconfig
+BuildRequires:	rpmbuild(macros) >= 1.268
+Requires(post,preun):	/sbin/chkconfig
 Requires:	dev >= 2.8.0-22
 Requires:	hdparm
+Requires:	rc-scripts
 Provides:	apmd
+Obsoletes:	apmd
 ExclusiveArch:	ppc
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-Obsoletes:	apmd
 
 %description
 pmud is a daemon which periodically polls the PMU (power manager) and
@@ -64,17 +66,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 /sbin/chkconfig --add pmud
-if [ -f /var/lock/subsys/pmud ]; then
-	/etc/rc.d/init.d/pmud restart >&2
-else
-	echo "Run \"/etc/rc.d/init.d/pmud start\" to start pmud daemon."
-fi
+%service pmud restart "pmud daemon"
 
 %preun
 if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/pmud ]; then
-		/etc/rc.d/init.d/pmud stop >&2
-	fi
+	%service pmud stop
 	/sbin/chkconfig --del pmud
 fi
 
@@ -83,7 +79,7 @@ fi
 %doc BUGS CHANGES INSTALL README THANKS TODO pwrctl-local
 %attr(755,root,root) %{_sbindir}/*
 %attr(755,root,root) %{_bindir}/*
-%attr(644,root,root) /etc/sysconfig/power
+%attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/power
 %attr(754,root,root) /etc/rc.d/init.d/pmud
 %attr(755,root,root) %{_sysconfdir}/power/pwrctl
 %{_mandir}/man8/*
