@@ -79,7 +79,7 @@ fi
 %doc BUGS CHANGES INSTALL README THANKS TODO pwrctl-local
 %attr(755,root,root) %{_sbindir}/*
 %attr(755,root,root) %{_bindir}/*
-%attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/power
+%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/power
 %attr(754,root,root) /etc/rc.d/init.d/pmud
 %attr(755,root,root) %{_sysconfdir}/power/pwrctl
 %{_mandir}/man8/*
