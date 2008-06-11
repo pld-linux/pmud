@@ -5,12 +5,12 @@ Version:	0.10.1
 Release:	2
 License:	GPL
 Group:		Applications/System
-Source0:	http://linuxppc.jvc.nl/%{name}-%{version}.tar.gz
+Source0:	http://dl.sourceforge.net/apmud/%{name}-%{version}.tar.gz
 # Source0-md5:	1bdc546199cd7e745c2cf7f560a52198
 Source1:	%{name}.init
 Patch0:		%{name}-pwrctl.patch
 Patch1:		%{name}-fcntl.patch
-URL:		http://linuxppc.jvc.nl/
+URL:		http://sourceforge.net/projects/apmud/
 BuildRequires:	rpmbuild(macros) >= 1.268
 Requires(post,preun):	/sbin/chkconfig
 Requires:	dev >= 2.8.0-22
@@ -48,11 +48,12 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_sbindir},%{_bindir},%{_mandir}/man8} \
 	$RPM_BUILD_ROOT/etc/{rc.d/init.d,sysconfig,power}
 
-install pmud snooze wakebay $RPM_BUILD_ROOT%{_sbindir}
+install pmud snooze wakebay fblevel $RPM_BUILD_ROOT%{_sbindir}
 install Batmon $RPM_BUILD_ROOT%{_bindir}
 install xmouse $RPM_BUILD_ROOT%{_bindir}
 
-install pmud.8 snooze.8 $RPM_BUILD_ROOT%{_mandir}/man8
+install pmud.8 snooze.8 fblevel.8 $RPM_BUILD_ROOT%{_mandir}/man8
+install batmon.8 $RPM_BUILD_ROOT%{_mandir}/man8
 install xmouse.8 $RPM_BUILD_ROOT%{_mandir}/man8
 
 install power.conf $RPM_BUILD_ROOT/etc/sysconfig/power
